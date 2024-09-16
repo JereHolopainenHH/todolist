@@ -1,4 +1,4 @@
-const TodoTable = (props) => {
+const TodoTable = ({ todos }) => {
     return (
         <>
             <table>
@@ -9,7 +9,7 @@ const TodoTable = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.todos.map((todo, index) => (
+                    {todos.map((todo, index) => (
                         <tr key={index}>
                             <td>{todo.date}</td>
                             <td>{todo.desc}</td>
