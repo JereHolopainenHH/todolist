@@ -65,7 +65,7 @@ table {
 
 table th,
 table td {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   padding: 6px;
 }
 
