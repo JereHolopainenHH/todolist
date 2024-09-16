@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TodoTable from "./TodoTable";
+import TodoForm from "./TodoForm";
 
 const TodoList = () => {
     // states
@@ -21,7 +22,10 @@ const TodoList = () => {
     };
 
     // add a new todo-item to the todos-list
-    const addTodo = () => {
+    const addTodo = (event) => {
+        // prevent the default form submission when clicking the submit-button
+        event.preventDefault();
+
         // validate that description value exists, alert if not. 
         if (!formState.desc || !formState.date) return alert("Both Description and Date required!");
 
@@ -30,6 +34,7 @@ const TodoList = () => {
             desc: formState.desc,
             date: formState.date
         }
+
         // add new todo-item to todos-list
         setTodos(prevState => [...prevState, todo]);
         // clear inputs
@@ -43,9 +48,7 @@ const TodoList = () => {
 
     return (
         <>
-            <input type="text" name="desc" placeholder="Description" onChange={handleChange} value={formState.desc} />
-            <input type="date" name="date" onChange={handleChange} value={formState.date} />
-            <button onClick={addTodo}>Add</button>
+            <TodoForm handleChange={handleChange} addTodo={addTodo} formState={formState} />
             <TodoTable todos={todos} deleteTodo={deleteTodo} />
         </>
     );
