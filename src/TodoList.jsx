@@ -4,7 +4,7 @@ import TodoTable from "./TodoTable";
 const TodoList = () => {
     // states
     const [desc, setDesc] = useState("");
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState(["testi123", "asdasdasd", "123123123", "43432432", "dkjsapkdpawokda"]);
 
     // control the input value
     const handleChange = (event) => setDesc(event.target.value);
@@ -19,11 +19,16 @@ const TodoList = () => {
         setDesc("");
     };
 
+    // delete item from the todoslist
+    const deleteTodo = (indexToRemove) => {
+        setTodos([...todos].filter((todo, index) => index !== indexToRemove));
+    }
+
     return (
         <>
             <input type="text" placeholder="Description" onChange={handleChange} value={desc} />
             <button onClick={addTodo}>Add</button>
-            <TodoTable todos={todos} />
+            <TodoTable todos={todos} deleteTodo={deleteTodo} />
         </>
     );
 }
