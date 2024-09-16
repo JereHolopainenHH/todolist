@@ -1,4 +1,4 @@
-const TodoTable = ({ todos }) => {
+const TodoTable = ({ todos, deleteTodo }) => {
     return (
         <>
             <table>
@@ -14,7 +14,7 @@ const TodoTable = ({ todos }) => {
                             <td>{todo.date}</td>
                             <td>{todo.desc}</td>
                             <td>
-                                <button onClick={() => props.deleteTodo(index)}>Delete</button>
+                                <button onClick={() => deleteTodo(index)}>Delete</button>
                             </td>
                         </tr>
                     ))}
