@@ -3,8 +3,11 @@ import TodoTable from "./TodoTable";
 
 const TodoList = () => {
     // states
-    const [desc, setDesc] = useState("");
-    const [todos, setTodos] = useState(["testi123", "asdasdasd", "123123123", "43432432", "dkjsapkdpawokda"]);
+    const [formState, setFormState] = useState({
+        desc: "",
+        date: ""
+    });
+    const [todos, setTodos] = useState([]);
 
     // control the input value
     const handleChange = (event) => setDesc(event.target.value);
