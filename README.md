@@ -1,1 +1,1 @@
-# Tehtäväpalautus tehtävään: Todolist poisto toiminnolla
+# README
