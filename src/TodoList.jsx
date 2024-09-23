@@ -3,11 +3,15 @@ import TodoTable from "./TodoTable";
 import TodoForm from "./TodoForm";
 
 const TodoList = () => {
+    // get current date that can be used as a default value for the input date element. 
+    const getCurrentDate = () => {
+        const today = new Date();
+        return today.toISOString().split("T")[0];
+    }
+
     // states
-    const [formState, setFormState] = useState({
-        desc: "",
-        date: ""
-    });
+    const initialFormState = { desc: "", date: getCurrentDate() };
+    const [formState, setFormState] = useState(initialFormState);
     const [todos, setTodos] = useState([]);
 
     // control the input value
@@ -38,7 +42,7 @@ const TodoList = () => {
         // add new todo-item to todos-list
         setTodos(prevState => [...prevState, todo]);
         // clear inputs
-        setFormState({ desc: "", date: "" });
+        setFormState(initialFormState);
     };
 
     // delete item from the todos-list
