@@ -43,7 +43,7 @@ const TodoList = () => {
 
     // delete item from the todos-list
     const deleteTodo = (indexToRemove) => {
-        setTodos([...todos].filter((todo, index) => index !== indexToRemove));
+        setTodos(todos.filter((todo, index) => index !== indexToRemove));
     }
 
     return (
