@@ -27,7 +27,7 @@ const TodoList = () => {
         event.preventDefault();
 
         // validate that description and date values exist and are valid, alert if not. 
-        if (!formState.desc || !formState.date) return alert("Invalid description or date! Make sure that both fields are filled and that the date has valid value");
+        if (!formState.desc || !formState.date) return alert("Invalid description or date! Make sure that both fields are filled.");
 
         // create new todo-object with the formState-data
         const todo = {
