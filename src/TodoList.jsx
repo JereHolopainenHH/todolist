@@ -1,7 +1,13 @@
 // import TodoTable from "./TodoTable";
 import TodoForm from "./TodoForm";
+<<<<<<< HEAD
 import { AgGridReact } from "ag-grid-react";
 import { useRef, useState } from 'react';
+=======
+import { AgGridReact, useGridFloatingFilter } from "ag-grid-react";
+import { useRef, useState } from 'react'
+
+>>>>>>> ag-grid
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
@@ -18,9 +24,15 @@ const TodoList = () => {
     const [formState, setFormState] = useState(initialFormState);
     const [todos, setTodos] = useState([]);
     const [columnDefs, setColumnDefs] = useState([
+<<<<<<< HEAD
         { field: 'desc', filter: true },
         { field: 'priority', filter: true },
         { field: 'date', filter: true }
+=======
+        { field: 'desc', filter: true, floatingFilter: true },
+        { field: 'priority', floatingFilter: true },
+        { field: 'date', floatingFilter: true }
+>>>>>>> ag-grid
     ]);
 
     // refs
@@ -80,8 +92,12 @@ const TodoList = () => {
                     onGridReady={params => gridRef.current = params.api}
                     rowData={todos}
                     columnDefs={columnDefs}
-                    rowSelection={{ mode: 'singleRow' }
-                    }
+                    rowSelection={{ mode: "singleRow" }}
+                    animateRows={true}
+                    defaultColDef={{
+                        sortable: true, // Ota lajittelu käyttöön
+                        filter: true, // Ota suodatus käyttöön
+                    }}
                 />
             </div>
         </>
