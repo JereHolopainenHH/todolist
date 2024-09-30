@@ -16,11 +16,35 @@ const TodoList = () => {
     // states
     const initialFormState = { desc: "", priority: "", date: getCurrentDate() };
     const [formState, setFormState] = useState(initialFormState);
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([
+        { desc: 'Tehtävä 1', priority: 'High', date: '2024-01-01' },
+        { desc: 'Tehtävä 2', priority: 'Low', date: '2024-01-02' },
+        { desc: 'Tehtävä 3', priority: 'Medium', date: '2024-01-03' },
+        { desc: 'Tehtävä 4', priority: 'HIGH', date: '2024-01-04' },
+        { desc: 'Tehtävä 5', priority: 'medium', date: '2024-01-05' },
+    ]);
+
+    // ag-grid priority order config
+    const priorityOrder = {
+        high: 1,
+        medium: 2,
+        low: 3
+    };
+
+    // column defs
     const [columnDefs, setColumnDefs] = useState([
         { field: 'desc', filter: true, floatingFilter: true },
-        { field: 'priority', floatingFilter: true },
-        { field: 'date', floatingFilter: true }
+        {
+            field: 'priority',
+            filter: true,
+            floatingFilter: true,
+            comparator: (a, b) => priorityOrder[a.toLowerCase()] - priorityOrder[b.toLowerCase()],
+            cellStyle: params => {
+                const value = params.value.toLowerCase();
+                return value === "high" ? { color: "red" } : value === "medium" ? { color: "orange" } : null;
+            }
+        },
+        { field: 'date', filter: true, floatingFilter: true }
     ]);
 
     // refs
