@@ -1,6 +1,6 @@
 // import TodoTable from "./TodoTable";
 import TodoForm from "./TodoForm";
-import { AgGridReact } from "ag-grid-react";
+import { AgGridReact, useGridFloatingFilter } from "ag-grid-react";
 import { useRef, useState } from 'react'
 
 
@@ -18,19 +18,11 @@ const TodoList = () => {
     const initialFormState = { desc: "", priority: "", date: getCurrentDate() };
     const [formState, setFormState] = useState(initialFormState);
     const [todos, setTodos] = useState([]);
-    /* const [columnDefs, setColumnDefs] = useState([
-        { field: 'desc' },
-        { field: 'priority' },
-        { field: 'date' }
-    ]); */
-    const columns = [
-        { field: "desc", sortable: true, filter: true },
-        {
-            field: "priority", sortable: true, filter: true,
-            cellStyle: params => params.value === "High" || params.value === "high" ? { color: 'red' } : { color: 'black' }
-        },
-        { field: "date", sortable: true, filter: true }
-    ];
+    const [columnDefs, setColumnDefs] = useState([
+        { field: 'desc', filter: true, floatingFilter: true },
+        { field: 'priority', floatingFilter: true },
+        { field: 'date', floatingFilter: true }
+    ]);
 
     // refs
     const gridRef = useRef();
@@ -88,8 +80,13 @@ const TodoList = () => {
                     ref={gridRef}
                     onGridReady={params => gridRef.current = params.api}
                     rowData={todos}
-                    columnDefs={columns}
-                    rowSelection="single"
+                    columnDefs={columnDefs}
+                    rowSelection={{ mode: "singleRow" }}
+                    animateRows={true}
+                    defaultColDef={{
+                        sortable: true, // Ota lajittelu käyttöön
+                        filter: true, // Ota suodatus käyttöön
+                    }}
                 />
             </div>
         </>
