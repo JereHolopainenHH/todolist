@@ -1,8 +1,7 @@
 // import TodoTable from "./TodoTable";
 import TodoForm from "./TodoForm";
 import { AgGridReact } from "ag-grid-react";
-import { useRef, useState } from 'react'
-
+import { useRef, useState } from 'react';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
@@ -18,19 +17,11 @@ const TodoList = () => {
     const initialFormState = { desc: "", priority: "", date: getCurrentDate() };
     const [formState, setFormState] = useState(initialFormState);
     const [todos, setTodos] = useState([]);
-    /* const [columnDefs, setColumnDefs] = useState([
-        { field: 'desc' },
-        { field: 'priority' },
-        { field: 'date' }
-    ]); */
-    const columns = [
-        { field: "desc", sortable: true, filter: true },
-        {
-            field: "priority", sortable: true, filter: true,
-            cellStyle: params => params.value === "High" || params.value === "high" ? { color: 'red' } : { color: 'black' }
-        },
-        { field: "date", sortable: true, filter: true }
-    ];
+    const [columnDefs, setColumnDefs] = useState([
+        { field: 'desc', filter: true },
+        { field: 'priority', filter: true },
+        { field: 'date', filter: true }
+    ]);
 
     // refs
     const gridRef = useRef();
@@ -83,13 +74,14 @@ const TodoList = () => {
     return (
         <>
             <TodoForm handleChange={handleChange} addTodo={addTodo} handleDelete={handleDelete} formState={formState} />
-            <div className="ag-theme-material" style={{ width: 700, height: 500 }}>
+            <div className="ag-theme-material" style={{ width: 700, height: 500, margin: "auto" }}>
                 <AgGridReact
                     ref={gridRef}
                     onGridReady={params => gridRef.current = params.api}
                     rowData={todos}
-                    columnDefs={columns}
-                    rowSelection="single"
+                    columnDefs={columnDefs}
+                    rowSelection={{ mode: 'singleRow' }
+                    }
                 />
             </div>
         </>

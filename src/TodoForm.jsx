@@ -1,21 +1,28 @@
+import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 const TodoForm = ({ handleChange, addTodo, handleDelete, formState }) => {
     return (
-        <form>
-            <fieldset>
-                <legend>Add todo</legend>
-                <label htmlFor="desc">
-                    Description: <input type="text" name="desc" id="desc" placeholder="Description" onChange={handleChange} value={formState.desc} />
-                </label>
-                <label htmlFor="priority">
-                    Priority: <input type="text" name="priority" id="priority" placeholder="Priority" onChange={handleChange} value={formState.priority} />
-                </label>
-                <label htmlFor="date">
-                    Date: <input type="date" name="date" id="date" onChange={handleChange} value={formState.date} />
-                </label>
-                <button onClick={addTodo}>Add</button>
-                <button onClick={handleDelete}>Delete</button>
-            </fieldset>
-        </form>
+        <Stack
+            mt={2}
+            direction="row"
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+        >
+            <TextField label="Description" type="text" name="desc" id="desc" onChange={handleChange} value={formState.desc} />
+            <TextField label="Priority" type="text" name="priority" id="priority" onChange={handleChange} value={formState.priority} />
+            <TextField label="Date" name="date" id="date" onChange={handleChange} value={formState.date} />
+            <Button variant="contained" onClick={addTodo}>Add Todo</Button>
+            <Button variant="contained" color="error" onClick={handleDelete} endIcon={<DeleteIcon />}>Delete</Button>
+        </Stack>
     )
 }
 
