@@ -1,4 +1,3 @@
-// import TodoTable from "./TodoTable";
 import TodoForm from "./TodoForm";
 import { AgGridReact } from "ag-grid-react";
 import { useRef, useState } from 'react';
@@ -69,7 +68,7 @@ const TodoList = () => {
         const todo = {
             desc: formState.desc,
             priority: formState.priority,
-            date: selectedDate.format('YYYY-MM-DD')
+            date: selectedDate.format("DD-MM-YYYY")
         }
 
         // add new todo-item to todos-list

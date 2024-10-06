@@ -17,8 +17,10 @@ const TodoForm = ({ handleChange, addTodo, handleDelete, formState, selectedDate
             <TextField label="Description" type="text" name="desc" id="desc" onChange={handleChange} value={formState.desc} />
             <TextField label="Priority" type="text" name="priority" id="priority" onChange={handleChange} value={formState.priority} />
             <DatePicker 
-                value={selectedDate} 
+                label="Date"
+                value={selectedDate}
                 onChange={date => handleSelectedDate(date)}
+                format="DD-MM-YYYY"
             />
             <Button variant="contained" onClick={addTodo}>Add Todo</Button>
             <Button variant="contained" color="error" onClick={handleDelete} endIcon={<DeleteIcon />}>Delete</Button>
