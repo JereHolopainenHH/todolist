@@ -2,27 +2,17 @@
 import TodoForm from "./TodoForm";
 import { AgGridReact } from "ag-grid-react";
 import { useRef, useState } from 'react';
+import dayjs from 'dayjs';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css"; // Material Design theme
 
 const TodoList = () => {
-    // get current date that can be used as a default value for the input date element. 
-    const getCurrentDate = () => {
-        const today = new Date();
-        return today.toISOString().split("T")[0];
-    }
-
     // states
-    const initialFormState = { desc: "", priority: "", date: getCurrentDate() };
+    const initialFormState = { desc: "", priority: "" };
     const [formState, setFormState] = useState(initialFormState);
-    const [todos, setTodos] = useState([
-        { desc: 'Tehtävä 1', priority: 'High', date: '2024-01-01' },
-        { desc: 'Tehtävä 2', priority: 'Low', date: '2024-01-02' },
-        { desc: 'Tehtävä 3', priority: 'Medium', date: '2024-01-03' },
-        { desc: 'Tehtävä 4', priority: 'HIGH', date: '2024-01-04' },
-        { desc: 'Tehtävä 5', priority: 'medium', date: '2024-01-05' },
-    ]);
+    const [selectedDate, setSelectedDate] = useState(dayjs());
+    const [todos, setTodos] = useState([]);
 
     // ag-grid priority order config
     const priorityOrder = {
@@ -62,25 +52,31 @@ const TodoList = () => {
         }));
     };
 
+    // control the date value
+    const handleSelectedDate = (date) => {
+        setSelectedDate(date);
+    }
+
     // add a new todo-item to the todos-list
     const addTodo = (event) => {
         // prevent the default form submission when clicking the submit-button
         event.preventDefault();
 
         // validate that description and date values exist and are valid, alert if not. 
-        if (!formState.desc || !formState.date || !formState.priority) return alert("Invalid form values! Make sure that all fields are filled.");
+        if (!formState.desc || !selectedDate || !formState.priority) return alert("Invalid form values! Make sure that all fields are filled.");
 
         // create new todo-object with the formState-data
         const todo = {
             desc: formState.desc,
             priority: formState.priority,
-            date: formState.date
+            date: selectedDate.format('YYYY-MM-DD')
         }
 
         // add new todo-item to todos-list
         setTodos(prevState => [...prevState, todo]);
         // clear inputs
         setFormState(initialFormState);
+        setSelectedDate(dayjs());
     };
 
     // delete item from the todos-list
@@ -97,7 +93,14 @@ const TodoList = () => {
 
     return (
         <>
-            <TodoForm handleChange={handleChange} addTodo={addTodo} handleDelete={handleDelete} formState={formState} />
+            <TodoForm
+                handleChange={handleChange}
+                addTodo={addTodo}
+                handleDelete={handleDelete}
+                formState={formState}
+                selectedDate={selectedDate}
+                handleSelectedDate={handleSelectedDate}
+            />
             <div className="ag-theme-material" style={{ width: 700, height: 500, margin: "auto" }}>
                 <AgGridReact
                     ref={gridRef}
